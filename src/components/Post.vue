@@ -67,7 +67,7 @@
                       Update at <time>{{post.updateDateFormat}}</time>
                     </div>
                     
-                    by <b>{{post.author.name}}</b>
+                    by <b>{{post.user.username}}</b>
                   </i>
                 </footer>
                 <a class="button is-warning" @click="isComponentModalActive = true">
@@ -139,7 +139,7 @@ export default {
       this.attemptPost = true;
       self = this;
       if(!this.titleField && !this.contentField){
-        axios.post('http://localhost:8081/api/v1/post',{
+        axios.post('api/v1/post',{
           description : this.description,
           title: this.title,
           tags: this.tags
@@ -162,7 +162,7 @@ export default {
 
     },
     getAllPosts : function(){
-      axios.get('http://localhost:8081/api/v1/posts')
+      axios.get('api/v1/posts')
         .then(response => {
           this.posts = response.data
         })
@@ -179,7 +179,7 @@ export default {
         confirmText: 'Delete Post',
         type: 'is-danger',
         hasIcon: true,
-        onConfirm: () => axios.delete("http://localhost:8081/api/v1/post/"+post.id)
+        onConfirm: () => axios.delete("api/v1/post/"+post.id)
           .then(response =>{
             self.posts.pop(post)
             // TODO make a better remove item list
@@ -198,7 +198,7 @@ export default {
     },
     findAllByTag : function(value){
       self = this;
-      axios.post("http://localhost:8081/api/v1/post/tag",{
+      axios.post("api/v1/post/tag",{
         id: value.id
       }).then(response => {
         this.posts = response.data;

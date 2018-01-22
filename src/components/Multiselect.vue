@@ -37,7 +37,7 @@ export default{
     },
     methods:{
         getAllHashtags : function(){
-            axios.get('http://localhost:8081/api/v1/tags')
+            axios.get('api/v1/tags')
                 .then(response =>{
                     this.options = response.data;
                 })

@@ -66,7 +66,7 @@ new Vue({
   render: h => h(App)
 })
 Vue.axios.defaults.baseURL = 'http://localhost:8080/'
-Vue.http.options.root = 'http://localhost:8081/';
+Vue.http.options.root = 'http://localhost:8082/';
 
 
 
