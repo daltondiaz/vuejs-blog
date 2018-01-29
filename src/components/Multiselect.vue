@@ -37,12 +37,15 @@ export default{
     },
     methods:{
         getAllHashtags : function(){
-            axios.get('api/v1/tags')
+            this.$http({
+                    url: 'api/v1/tags',
+                    method: 'GET'
+                })
                 .then(response =>{
                     this.options = response.data;
                 })
                 .catch(error =>{
-                    console.log(error)
+                    console.log(error);
                 });
         },
         addTag: function(newTag){

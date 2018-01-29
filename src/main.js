@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import Buefy from 'buefy'
@@ -13,8 +13,8 @@ import 'buefy/lib/buefy.css'
 Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(Buefy)
-Vue.use(VueAxios)
-Vue.use(axios);
+// Vue.use(VueAxios)
+// Vue.use(axios);
 
 
 // register globally
@@ -37,7 +37,8 @@ export var router = new VueRouter({
   },{
     path: '/login',
     name: 'login', 
-    component: require('./components/Login.vue')
+    component: require('./components/Login.vue'),
+    meta: { auth: false }
   }
   ,{
     path: '/about', 
@@ -49,6 +50,7 @@ export var router = new VueRouter({
 
 // remember to set vue.router before plugin
 Vue.router = router
+Vue.http.options.root = 'http://localhost:8082/';
 
 // Set plugin vue-auth
 Vue.use(require('@websanova/vue-auth'),{
@@ -65,8 +67,7 @@ new Vue({
   router,
   render: h => h(App)
 })
-Vue.axios.defaults.baseURL = 'http://localhost:8080/'
-Vue.http.options.root = 'http://localhost:8082/';
+//Vue.axios.defaults.baseURL = 'http://localhost:8082/'
 
 
 

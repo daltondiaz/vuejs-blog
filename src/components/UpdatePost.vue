@@ -27,7 +27,7 @@ export default {
     props:['title','description','id'],
     methods:{
         updatePost: function(){
-            axios.put('http://localhost:8082/api/v1/post',{
+            axios.put('api/v1/post',{
                 description: this.description,
                 title: this.title,
                 id: this.id

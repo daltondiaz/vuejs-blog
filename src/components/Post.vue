@@ -139,10 +139,14 @@ export default {
       this.attemptPost = true;
       self = this;
       if(!this.titleField && !this.contentField){
-        axios.post('api/v1/post',{
-          description : this.description,
-          title: this.title,
-          tags: this.tags
+        this.$http({
+          url: 'api/v1/post',
+          method: 'POST',
+          params: {
+            description : this.description,
+            title: this.title,
+            tags: this.tags
+          }
         }).then(function(response){
           self.posts.push(response.data);
           self.title = '';
@@ -162,7 +166,10 @@ export default {
 
     },
     getAllPosts : function(){
-      axios.get('api/v1/posts')
+      this.$http({
+          url: 'api/v1/posts',
+          method: 'GET'
+        })
         .then(response => {
           this.posts = response.data
         })
@@ -179,7 +186,11 @@ export default {
         confirmText: 'Delete Post',
         type: 'is-danger',
         hasIcon: true,
-        onConfirm: () => axios.delete("api/v1/post/"+post.id)
+        onConfirm: () => this.$http({
+            url: 'api/v1/post/' + post.id,
+            method: 'DELETE'
+
+            })
           .then(response =>{
             self.posts.pop(post)
             // TODO make a better remove item list
@@ -198,8 +209,12 @@ export default {
     },
     findAllByTag : function(value){
       self = this;
-      axios.post("api/v1/post/tag",{
-        id: value.id
+      this.$http({
+        url: 'api/v1/post/tag',
+        method: 'POST',
+        params: {
+          id: value.id
+        }
       }).then(response => {
         this.posts = response.data;
       }).catch(error =>{
