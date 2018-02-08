@@ -18,7 +18,6 @@
 </template>
 <script>
 
-import axios from 'axios';
 import Mutliselect from 'vue-multiselect';
 
 export default{

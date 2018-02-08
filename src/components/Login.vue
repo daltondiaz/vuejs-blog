@@ -45,14 +45,17 @@ export default{
         }
         
     },
+    mounted(){
+        console.log(this.$auth.redirect());
+    },
     methods:{
         login(){
             var redirect = this.$auth.redirect();
 
             this.$auth.login({
                 method: 'post',
-                body: this.data.body, //
-              //  data: this.data.body,
+                body: this.data.body, 
+                data: this.data.body,
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -61,7 +64,7 @@ export default{
                     name: redirect ? redirect.from.name: 'posts'
                 },
                 url: 'http://localhost:8082/auth/login',
-             //   fetchUser: false,
+                fetchUser: this.data.fetchUser
             })
             .then(() => {
                 console.log('Success')

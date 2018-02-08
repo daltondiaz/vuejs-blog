@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-// import axios from 'axios'
-// import VueAxios from 'vue-axios'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import Buefy from 'buefy'
@@ -13,8 +11,6 @@ import 'buefy/lib/buefy.css'
 Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(Buefy)
-// Vue.use(VueAxios)
-// Vue.use(axios);
 
 
 // register globally
@@ -39,11 +35,15 @@ export var router = new VueRouter({
     name: 'login', 
     component: require('./components/Login.vue'),
     meta: { auth: false }
-  }
-  ,{
+  },{
     path: '/about', 
     name: 'about',
     component: require('./components/About.vue')
+  },{
+    path: '/account', 
+    name: 'account',
+    component: require('./components/Account.vue'),
+    meta: { auth: true}
   }
 ]
 });
@@ -67,8 +67,3 @@ new Vue({
   router,
   render: h => h(App)
 })
-//Vue.axios.defaults.baseURL = 'http://localhost:8082/'
-
-
-
-//new Vue(App).$mount('#app');
