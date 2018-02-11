@@ -45,7 +45,8 @@ export default{
                     username:'',
                     password:''
                 },
-                rememberMe:false
+                rememberMe:false,
+               // fetchUser: true
             }
         }
         
@@ -61,14 +62,11 @@ export default{
                 method: 'post',
                 body: this.data.body, 
                 data: this.data.body,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 rememberMe: this.data.rememberMe,
                 redirect:{
                     name: redirect ? redirect.from.name: 'posts'
                 },
-                url: 'http://localhost:8082/auth/login',
+              //  url: 'http://localhost:8082/auth/login',
                 fetchUser: this.data.fetchUser
             })
             .then(function(data){
