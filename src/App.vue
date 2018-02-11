@@ -1,7 +1,7 @@
 <template>
   <section class="tites">
     <div v-if="$auth.ready() && loaded">
-      <nav class="level">
+      <nav class="navbar level is-light">
         <p class="level-item has-text-centered">
           <router-link :to="{name:'home'}">Home</router-link> 
         </p>
@@ -14,19 +14,15 @@
         <p class="level-item has-text-centered">
           <a class="link is-info">Contact</a>
         </p>
-        <span v-show="!$auth.check()">
-          <p class="level-item has-text-centered">
-            <router-link :to="{name:'login'}" class="link is-info">Login</router-link>
-          </p>
-        </span>
-        <span v-show="$auth.check()">
-          <p class="level-item has-text-centered">
-            <router-link :to="{name:'account'}" class="link is-info">My Account</router-link>
-          </p>
-          <p class="level-item has-text-centered">
-            <a v-on:click="logout()" href="javascript:void(0);" >Logout</a>
-          </p>
-        </span>
+        <p v-show="!$auth.check()" class="level-item has-text-centered">
+          <router-link :to="{name:'login'}" class="link is-info">Login</router-link>
+        </p>
+        <p class="level-item has-text-centered" v-show="$auth.check()">
+          <router-link :to="{name:'account'}" class="link is-info">My Account</router-link>
+        </p>
+        <p class="level-item has-text-centered" v-show="$auth.check()">
+          <a v-on:click="logout()" href="javascript:void(0);" >Logout</a>
+        </p>
       </nav>
     </div>
     <router-view></router-view>   
@@ -76,6 +72,16 @@ export default {
           console.log('error');
         }
       })
+    },
+    unimpersonate() {
+        this.$auth.unimpersonate({
+            success() {
+                console.log('success ' + this.context);
+            },
+            error() {
+                console.log('error ' + this.context);
+            }
+        });
     }
   }
 }

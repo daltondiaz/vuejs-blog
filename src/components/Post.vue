@@ -7,7 +7,7 @@
 
         <div class="columns" >
 
-          <div class="column is-6 ">
+          <div class="column is-6 " v-show="$auth.check()">
             <div class="field">
               <input type="text" 
                     class="input" 
