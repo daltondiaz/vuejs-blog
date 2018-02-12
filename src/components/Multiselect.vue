@@ -36,10 +36,9 @@ export default{
     },
     methods:{
         getAllHashtags : function(){
-            this.$http({
-                    url: 'api/v1/tags',
-                    method: 'GET'
-                })
+            this.$http.get(
+                    'api/v1/tags'
+                )
                 .then(response =>{
                     this.options = response.data;
                 })

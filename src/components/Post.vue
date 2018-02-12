@@ -97,7 +97,6 @@
 
 <script>
 
-import axios from 'axios';
 import UpdatePost from './UpdatePost.vue';
 import Multiselect from './Multiselect.vue';
 
@@ -139,15 +138,13 @@ export default {
       this.attemptPost = true;
       self = this;
       if(!this.titleField && !this.contentField){
-        this.$http({
-          url: 'api/v1/post',
-          method: 'POST',
-          params: {
-            description : this.description,
-            title: this.title,
-            tags: this.tags
-          }
-        }).then(function(response){
+        const newPost = new Object();
+        newPost.description = this.description;
+        newPost.title = this.title;
+        newPost.tags = this.tags;
+        this.$http.post('api/v1/post',
+         newPost
+        ).then(function(response){
           self.posts.push(response.data);
           self.title = '';
           self.description = '';
@@ -186,11 +183,9 @@ export default {
         confirmText: 'Delete Post',
         type: 'is-danger',
         hasIcon: true,
-        onConfirm: () => this.$http({
-            url: 'api/v1/post/' + post.id,
-            method: 'DELETE'
-
-            })
+        onConfirm: () => 
+          this.$http
+          .delete('api/v1/post/' + post.id)
           .then(response =>{
             self.posts.pop(post)
             // TODO make a better remove item list
@@ -209,13 +204,9 @@ export default {
     },
     findAllByTag : function(value){
       self = this;
-      this.$http({
-        url: 'api/v1/post/tag',
-        method: 'POST',
-        params: {
-          id: value.id
-        }
-      }).then(response => {
+      this.$http.post(
+          'api/v1/post/tag',value.id)
+      .then(response => {
         this.posts = response.data;
       }).catch(error =>{
         console.log(error);

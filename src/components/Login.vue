@@ -46,7 +46,7 @@ export default{
                     password:''
                 },
                 rememberMe:false,
-               // fetchUser: true
+                fetchUser: true
             }
         }
         
@@ -66,7 +66,6 @@ export default{
                 redirect:{
                     name: redirect ? redirect.from.name: 'posts'
                 },
-              //  url: 'http://localhost:8082/auth/login',
                 fetchUser: this.data.fetchUser
             })
             .then(function(data){

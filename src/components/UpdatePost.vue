@@ -21,17 +21,17 @@
 </template>
 <script>
 
-import axios from 'axios';
-
 export default {
     props:['title','description','id'],
     methods:{
         updatePost: function(){
-            axios.put('api/v1/post',{
-                description: this.description,
-                title: this.title,
-                id: this.id
-            }).then(function (response) {
+            const updatedPost = new Object();
+            updatedPost.description = this.description;
+            updatedPost.title = this.title;
+            updatedPost.id = this.id;
+            this.$http.put(
+                'api/v1/post', updatedPost
+            ).then(function (response) {
                 console.log(response);
             }).catch(function(error){
                 console.log(error);
