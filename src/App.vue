@@ -3,9 +3,6 @@
     <div v-if="$auth.ready() && loaded">
       <nav class="navbar level is-light">
         <p class="level-item has-text-centered">
-          <router-link :to="{name:'home'}">Home</router-link> 
-        </p>
-        <p class="level-item has-text-centered">
           <router-link :to="{name:'posts'}">Posts</router-link> 
         </p>
         <p class="level-item has-text-centered">

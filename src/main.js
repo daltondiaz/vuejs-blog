@@ -23,10 +23,6 @@ export var router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes:[{
-    path: '/home',
-    name: 'home', 
-    component: require('./App.vue')
-  },{
     path: '/posts',
     name: 'posts', 
     component: require('./components/Post.vue')
