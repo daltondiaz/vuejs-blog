@@ -30,9 +30,9 @@ export default {
             updatedPost = this.post;
             this.$http.put(
                 'api/v1/post', updatedPost
-            ).then(function (response) {
+            ).then(response => {
                 console.log(response);
-            }).catch(function(error){
+            }).catch(error => {
                 console.log(error);
             });
             console.log("Update");

@@ -12,7 +12,7 @@
               <input type="text" 
                     class="input" 
                     v-model="title" 
-                    v-bind:class="{'is-warning':titleField && attemptPost}" 
+                    :class="{'is-warning':titleField && attemptPost}" 
                     placeholder="Title">
               </input>
               <div class="is-warning" v-if="titleField && attemptPost">This field is required.</div>
@@ -23,7 +23,7 @@
                       rows="8" 
                       cols="80" 
                       v-model="description" 
-                      v-bind:class="{'is-warning':contentField && attemptPost}"
+                      :class="{'is-warning':contentField && attemptPost}"
                       placeholder="Post content">
               </textarea>
               <div class="is-warning" v-if="contentField && attemptPost">This field is required.</div>
@@ -70,21 +70,23 @@
                     by <b>{{post.user.username}}</b>
                   </i>
                 </footer>
-                <a class="button is-warning" @click="isComponentModalActive = true">
-                  <span>Edit</span>
-                  <span class="icon is-small">
-                    <i class="fa fa-edit"></i>
-                  </span>
-                </a>
-                <b-modal :active.sync="isComponentModalActive" has-modal-card>
-                  <v-update-post :post="post"></v-update-post>
-                </b-modal>
-                <a class="button is-danger" @click="deletePost(post)">
-                  <span>Delete</span>
-                  <span class="icon is-small">
-                    <i class="fa fa-times"></i>
-                  </span>
-                </a>
+                <div v-show="$auth.check()">
+                  <a class="button is-warning" @click="isComponentModalActive = true">
+                    <span>Edit</span>
+                    <span class="icon is-small">
+                      <i class="fa fa-edit"></i>
+                    </span>
+                  </a>
+                  <b-modal :active.sync="isComponentModalActive" has-modal-card>
+                    <v-update-post :post="post"></v-update-post>
+                  </b-modal>
+                  <a class="button is-danger" @click="deletePost(post)">
+                    <span>Delete</span>
+                    <span class="icon is-small">
+                      <i class="fa fa-times"></i>
+                    </span>
+                  </a>
+                </div>
               </div>
               </br>
             </div>
@@ -136,7 +138,7 @@ export default {
   methods:{ 
     addNewPost: function(){
       this.attemptPost = true;
-      self = this;
+      let vm = this;
       if(!this.titleField && !this.contentField){
         const newPost = new Object();
         newPost.description = this.description;
@@ -145,12 +147,24 @@ export default {
         this.$http.post('api/v1/post',
          newPost
         ).then(function(response){
-          self.posts.push(response.data);
-          self.title = '';
-          self.description = '';
+          vm.posts.push(response.data);
+          vm.title = '';
+          vm.description = '';
           // Send to child (Multiselect) to clean
-          self.$emit('tags', []);
+          vm.$emit('tags', []);
+          vm.tags = [];
+          this.$toast.open({
+            duration: 2000,
+            message: "New post added!",
+            type: "is-success"
+          });
+
         }).catch(function(error){
+          this.$toast.open({
+            duration: 3000,
+            message: "Error to create a new post!",
+            type: "is-danger"
+          });
           console.log(error);
         });
       }else{
@@ -175,7 +189,7 @@ export default {
         });
     },
     deletePost: function(post){
-      self = this;
+      let vm = this;
       // this.$dialog is from Buefy
       this.$dialog.confirm({
         title: 'Deleting post',
@@ -187,9 +201,9 @@ export default {
           this.$http
           .delete('api/v1/post/' + post.id)
           .then(response =>{
-            self.posts.pop(post)
+            vm.posts.pop(post)
             // TODO make a better remove item list
-            self.$toast.open({
+            vm.$toast.open({
               message:'Post deleted!',
               type: 'is-success'
             });
@@ -203,7 +217,7 @@ export default {
       return field === '';
     },
     findAllByTag : function(value){
-      self = this;
+      let vm = this;
       this.$http.post(
           'api/v1/post/tag',value.id)
       .then(response => {
