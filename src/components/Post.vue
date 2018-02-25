@@ -50,7 +50,7 @@
                   <p>{{ post.description }}</p>
                 </div>
                 <b-field grouped group-multiline> 
-                  <div v-for="(value, key, index) in post.tags">
+                  <div v-for="value in post.tags">
                     <span class="multiselect__tag">
                       <a class="link-tag" @click="findAllByTag(value)">
                         <span>{{value.name}}</span>
@@ -60,7 +60,7 @@
                 </b-field>
                 <footer >
                   <i class="is-small content">
-                    <div v-if="post.updateDateFormat == '' ">
+                    <div v-if="post.updateDateFormat == '' || post.updateDateFormat == null">
                       Posted at <time>{{post.creationDateFormat}}</time> 
                     </div>
                     <div v-else>
@@ -77,7 +77,7 @@
                   </span>
                 </a>
                 <b-modal :active.sync="isComponentModalActive" has-modal-card>
-                  <v-update-post v-bind="post"></v-update-post>
+                  <v-update-post :post="post"></v-update-post>
                 </b-modal>
                 <a class="button is-danger" @click="deletePost(post)">
                   <span>Delete</span>

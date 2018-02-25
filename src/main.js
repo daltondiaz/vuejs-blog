@@ -36,6 +36,10 @@ export var router = new VueRouter({
     name: 'about',
     component: require('./components/About.vue')
   },{
+    path: '/contact', 
+    name: 'contact',
+    component: require('./components/Contact.vue')
+  },{
     path: '/account', 
     name: 'account',
     component: require('./components/Account.vue'),

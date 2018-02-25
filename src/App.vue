@@ -9,7 +9,7 @@
           <router-link :to="{name:'about'}" class="link is-info">About</router-link>
         </p>
         <p class="level-item has-text-centered">
-          <a class="link is-info">Contact</a>
+          <router-link :to="{name:'contact'}" class="link is-info">Contact</router-link>
         </p>
         <p v-show="!$auth.check()" class="level-item has-text-centered">
           <router-link :to="{name:'login'}" class="link is-info">Login</router-link>
