@@ -6,8 +6,8 @@
         </header>
         <section class="modal-card-body">
             {{ post.id }}
-            <b-field label="Title">
-                <input type="text" class="input" placeholder="Title" v-model="post.title"></input>
+            <b-field label="Title">i
+                <input type="text" class="input" placeholder="Title" v-model="post.title"/>
             </b-field>
             <b-field label="Content">
                 <textarea class= "textarea" name="name" v-model="post.description" rows="8" cols="80"  placeholder="Post content"></textarea>

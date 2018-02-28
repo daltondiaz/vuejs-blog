@@ -9,8 +9,7 @@
                                 class="input"
                                 placeholder="Name"
                                 v-model="data.body.username" 
-                                >
-                                </input>
+                                />
                         </div>
                         <b-field>
                             <b-input type="password"
