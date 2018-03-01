@@ -218,8 +218,10 @@ export default {
     },
     findAllByTag : function(value){
       let vm = this;
+      const tag = new Object();
+      tag.id = value.id;
       this.$http.post(
-          'api/v1/post/tag',value.id)
+          'api/v1/post/tag',tag)
       .then(response => {
         this.posts = response.data;
       }).catch(error =>{

@@ -5,7 +5,6 @@
             <p class="modal-card-title">Edit Post</p>
         </header>
         <section class="modal-card-body">
-            {{ post.id }}
             <b-field label="Title">
                 <input type="text" class="input" placeholder="Title" v-model="post.title"/>
             </b-field>
