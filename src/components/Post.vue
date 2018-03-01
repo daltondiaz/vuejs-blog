@@ -40,7 +40,7 @@
                 <a @click="getAllPosts()"> Posts </a>
               </h2>
               <div v-for="post in posts" :key="post.id">
-                <div class="">
+                <div class="box" style="margin-bottom: 10px;">
                   <div class=" ">
                     <p class="title is-4">
                       {{ post.title}}
@@ -78,7 +78,7 @@
                       </span>
                     </a>
                     <b-modal :active.sync="isComponentModalActive" has-modal-card>
-                      <v-update-post :post="post"></v-update-post>
+                      <v-update-post :post="post" ></v-update-post>
                     </b-modal>
                     <a class="button is-danger" @click="deletePost(post)">
                       <span>Delete</span>
@@ -139,6 +139,10 @@ export default {
         newPost.description = this.description;
         newPost.title = this.title;
         newPost.tags = this.tags;
+        const user = new Object();
+        user.id = this.$auth.user().id;
+        newPost.user = user;
+        
         this.$http.post('api/v1/post',
          newPost
         ).then(function(response){

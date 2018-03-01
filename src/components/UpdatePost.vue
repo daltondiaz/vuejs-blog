@@ -6,7 +6,7 @@
         </header>
         <section class="modal-card-body">
             {{ post.id }}
-            <b-field label="Title">i
+            <b-field label="Title">
                 <input type="text" class="input" placeholder="Title" v-model="post.title"/>
             </b-field>
             <b-field label="Content">
